@@ -15,7 +15,8 @@ def load_stress_fibers():
         使用np.loadtxt加载文本格式的数据
     """
     # 学生需要实现：使用np.loadtxt加载数据文件
-    pass
+    stress_fibers=np.loadtxt('data/stressFibers.txt')
+    return stress_fibers
 
 def create_gauss_filter():
     """
@@ -32,7 +33,10 @@ def create_gauss_filter():
     # 学生需要实现：
     # 1. 使用np.arange和np.meshgrid创建坐标网格
     # 2. 根据公式计算高斯函数值
-    pass
+    v=np.arange(-25,26)
+    X,Y=np.meshgrid(v,v)
+    gauss_filter=np.exp(-0.5*(X**2/5+Y**2/45))
+    return gauss_filter
 
 def create_combined_filter(gauss_filter):
     """
@@ -51,7 +55,9 @@ def create_combined_filter(gauss_filter):
     # 学生需要实现：
     # 1. 定义3x3拉普拉斯滤波器
     # 2. 使用scipy.ndimage.convolve进行卷积
-    pass
+    laplace_filter=np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
+    combined_filter=sim.convolve(gauss_filter,laplace_filter)
+    return combined_filter
 
 def plot_filter_surface(filter, title):
     """
@@ -69,7 +75,13 @@ def plot_filter_surface(filter, title):
     # 1. 创建fig和3D axes
     # 2. 使用plot_surface绘制表面
     # 3. 设置标题并显示图形
-    pass
+    fig=plt.figure(figsize=(10,6))
+    ax=fig.add_subplot(111,projection='3d')
+    v=np.arange(filter.shape[0])
+    X,Y=np.meshgrid(v,v)
+    ax.plot_surface(X,Y,filter,cmap='viridis')
+    ax.set_title(title)
+    plt.show()
 
 def process_and_display(stressFibers, filter, vmax_ratio=0.5):
     """
@@ -87,7 +99,12 @@ def process_and_display(stressFibers, filter, vmax_ratio=0.5):
     # 1. 使用scipy.ndimage.convolve应用滤波器
     # 2. 使用plt.imshow显示结果，设置vmin=0, vmax=vmax_ratio*最大值
     # 3. 添加colorbar并显示图形
-    pass
+    processed_image = sim.convolve(stress_fibers, filter)
+    vmax = np.max(processed_image) * vmax_ratio
+    plt.imshow(processed_image, cmap='gray', vmin=0, vmax=vmax)
+    plt.colorbar()
+    plt.show()
+    return processed_image
 
 def main():
     """
@@ -122,6 +139,15 @@ def main():
     
     # 选做: 45度方向滤波器
     # 学生需要添加处理代码
+    stress_fibers = load_stress_fibers()
+    gauss_filter = create_gauss_filter()
+    plot_filter_surface(gauss_filter, 'Gauss Filter Surface')
+    combined_filter = create_combined_filter(gauss_filter)
+    plot_filter_surface(combined_filter, 'Combined Filter Surface')
+    processed_image1 = process_and_display(stress_fibers, combined_filter)
+    combined_filter2 = sim.rotate(combined_filter, angle=90)
+    processed_image2 = process_and_display(stress_fibers, combined_filter2)
+
 
 if __name__ == "__main__":
     main()
