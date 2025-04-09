@@ -69,6 +69,7 @@ def process_image(input_file):
     # 调整布局并显示
     plt.tight_layout()
     plt.show()
+    plt.savefig("figrue")
 
 if __name__ == "__main__":
     # 主程序入口 - 学生需要确保data/bwCat.tif文件存在
