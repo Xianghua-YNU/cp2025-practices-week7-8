@@ -15,7 +15,7 @@ def load_stress_fibers():
         使用np.loadtxt加载文本格式的数据
     """
     # 学生需要实现：使用np.loadtxt加载数据文件
-    stress_fibers=np.loadtxt('data/stressFibers.txt')
+    stress_fibers = np.loadtxt('data/stressFibers.txt')
     return stress_fibers
 
 def create_gauss_filter():
@@ -33,9 +33,9 @@ def create_gauss_filter():
     # 学生需要实现：
     # 1. 使用np.arange和np.meshgrid创建坐标网格
     # 2. 根据公式计算高斯函数值
-    v=np.arange(-25,26)
-    X,Y=np.meshgrid(v,v)
-    gauss_filter=np.exp(-0.5*(X**2/5+Y**2/45))
+    v = np.arange(-25, 26)
+    X, Y = np.meshgrid(v, v)
+    gauss_filter = np.exp(-0.5*(X**2/5 + Y**2/45))
     return gauss_filter
 
 def create_combined_filter(gauss_filter):
@@ -55,8 +55,8 @@ def create_combined_filter(gauss_filter):
     # 学生需要实现：
     # 1. 定义3x3拉普拉斯滤波器
     # 2. 使用scipy.ndimage.convolve进行卷积
-    laplace_filter=np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
-    combined_filter=sim.convolve(gauss_filter,laplace_filter)
+    laplace_filter = np.array([[0, -1, 0], [-1, 4, -1], [0, -1, 0]])
+    combined_filter = sim.convolve(gauss_filter, laplace_filter)
     return combined_filter
 
 def plot_filter_surface(filter, title):
@@ -75,11 +75,11 @@ def plot_filter_surface(filter, title):
     # 1. 创建fig和3D axes
     # 2. 使用plot_surface绘制表面
     # 3. 设置标题并显示图形
-    fig=plt.figure(figsize=(10,6))
-    ax=fig.add_subplot(111,projection='3d')
-    v=np.arange(filter.shape[0])
-    X,Y=np.meshgrid(v,v)
-    ax.plot_surface(X,Y,filter,cmap='viridis')
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_subplot(111, projection='3d')
+    v = np.arange(filter.shape[0])
+    X, Y = np.meshgrid(v, v)
+    ax.plot_surface(X, Y, filter, cmap='viridis')
     ax.set_title(title)
     plt.show()
 
