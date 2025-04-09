@@ -48,3 +48,15 @@
 ## 六、参考文献
 
 - SymPy官方文档：https://docs.sympy.org/latest/modules/plotting.html
+
+
+
+
+<img width="547" alt="截屏2025-04-09 18 00 53" src="https://github.com/user-attachments/assets/94198cc7-0af6-4ba1-8aa4-ca0bd94088a3" />
+<img width="573" alt="截屏2025-04-09 17 59 56" src="https://github.com/user-attachments/assets/e8163943-7902-4a27-b00d-1c24ff1e5148" />
+
+
+
+<img width="517" alt="截屏2025-04-09 18 00 26" src="https://github.com/user-attachments/assets/bb47be11-5a61-430e-bad6-923eed455a83" />
+
+
